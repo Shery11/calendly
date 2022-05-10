@@ -16,7 +16,8 @@
                         <label for="user" class="form-label">Select a user</label>
                         <select formControlName="user" id="user" class="form-select">
                             <option [ngValue]="null" disabled>Select a User</option>
-                            <option *ngFor="let user of users" [ngValue]="user">{{user.name}} ({{user.username}})
+                            <option *ngFor="let user of users" [ngValue]="user" [disabled]="user.id == currentUser.id">
+                                {{user.name}} ({{user.username}})
                             </option>
                         </select>
                     </div>

@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 import { map } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
+import swal from "sweetalert2";
 @Injectable({
   providedIn: 'root'
 })
@@ -18,8 +19,12 @@ export class ApiService {
     return this.selectedUser.asObservable();
   }
 
+  getCurrentUser() {
+    return JSON.parse(localStorage.getItem('user'));
+  }
+
   schedule_meeting(params) {
-    let currentUser = JSON.parse(localStorage.getItem('user'));
+    let currentUser = this.getCurrentUser()
     console.log(currentUser);
     console.log(params);
     console.log({ schedulingUser: currentUser, scheduledUser: params.user, start: params.start, end: params.end })
@@ -27,7 +32,7 @@ export class ApiService {
   }
 
   get_meetings(user?) {
-    user = user ? user : JSON.parse(localStorage.getItem('user'));
+    user = user ? user : this.getCurrentUser()
     return this.http.get(`${this.apiUrl}/meetings/${user.id}/${user.username}`).pipe(map(resp => {
       return resp['data'].map(meeting => {
         return { id: meeting.id, start: meeting.start, end: meeting.end, users: meeting.users.filter(meeting_user => meeting_user.id != user.id) }
@@ -37,5 +42,16 @@ export class ApiService {
 
   delete_meeting(meeting_id) {
     return this.http.delete(`${this.apiUrl}/delete/${meeting_id}`)
+  }
+
+  getUnixDate(date: Date) {
+    return new Date(date).getTime()
+  }
+
+  showCustomAlertSuccess(message) {
+    swal.fire("Success", message, "success");
+  }
+  showCustomAlertError(message) {
+    swal.fire("Error", message, "error");
   }
 }

@@ -19,10 +19,9 @@ export class MeetingsComponent implements OnInit {
 
   delete(meeting_id) {
     this.api.delete_meeting(meeting_id).subscribe((resp: any) => {
-      console.log(resp);
-      if (resp.success) {
+      if (resp.success)
         this.api.sendSelectedUser(null);
-      }
+      else this.api.showCustomAlertError("Unable to delete")
     })
   }
 

@@ -1,20 +1,18 @@
-<h2>Your Scheduled Meetings</h2>
 <div class="table-responsive">
 
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Scheduled With</th>
+                <!-- <th scope="col">#</th> -->
+                <th scope="col">With</th>
                 <th scope="col">Start</th>
                 <th scope="col">End</th>
                 <td *ngIf="showDelete"></td>
-
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let meeting of meetingSubscription$ | async; let i = index;">
-                <th>{{i+1}}</th>
+                <!-- <th>{{i+1}}</th> -->
                 <td>{{meeting.users[0].username}}</td>
                 <td>{{meeting.start | date:'dd-MM-yyyy,h:mm a'}}</td>
                 <td>{{meeting.end | date:'dd-MM-yyyy,h:mm a'}}</td>

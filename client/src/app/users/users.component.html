@@ -3,8 +3,8 @@
 <ol class="list-group list-group-numbered">
     <li *ngFor="let user of users" class="list-group-item d-flex justify-content-between align-items-start">
         <div class="ms-2 me-auto">
-            <div class="fw-bold">{{user.name}} ({{user.username}})</div>
-            {{user.email}}
+            <div class="fw-bold">{{user.name}} </div>
+            {{user.email}} ({{user.username}})
         </div>
         <button type="button" class="btn btn-outline-primary btn-sm" (click)="login(user)">Login</button>
     </li>
