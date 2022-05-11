@@ -1,10 +1,7 @@
-# Foobar
-
-Demo calendly application
-
+# Demo Calendly Application
 ## Installation
 
-Clone the repo
+Clone the repository
 
 ### Client
 
