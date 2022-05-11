@@ -1,0 +1,1 @@
+{"version":3,"file":"meetings.js","sourceRoot":"","sources":["../../../src/api/models/meetings.ts"],"names":[],"mappings":";;;AAAA,MAAa,OAAO;IAGhB,YAAY,KAAa,EAAE,GAAW,EAAE,IAAW;QAC/C,IAAI,CAAC,KAAK,GAAG,KAAK,CAAC;QACnB,IAAI,CAAC,GAAG,GAAG,GAAG,CAAC;QACf,IAAI,CAAC,IAAI,GAAG,IAAI,CAAA;IACpB,CAAC;CAMJ;AAbD,0BAaC"}

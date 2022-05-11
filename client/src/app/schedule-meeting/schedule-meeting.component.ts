@@ -36,13 +36,17 @@ export class ScheduleMeetingComponent implements OnInit {
     if (this.api.getUnixDate(values.start) < this.api.getUnixDate(values.end)) {
       this.api.schedule_meeting(values).subscribe((res: any) => {
         console.log(res);
-        if (!res.success) {
-          return this.api.showCustomAlertError("Already booked, Please select different slot")
+        if (res.success) {
+          this.api.sendSelectedUser(this.scheduleForm.get("user").value);
+          this.scheduleForm.reset();
+          return this.api.showCustomAlertSuccess("Meeting Scheduled")
+
         }
-        this.api.sendSelectedUser(this.scheduleForm.get("user").value);
-        this.scheduleForm.reset();
-        return this.api.showCustomAlertSuccess("Meeting Scheduled")
+        return this.api.showCustomAlertError("Already booked, Please select different slot")
+
       })
+    } else {
+      this.api.showCustomAlertError("Invalid Date/Time selection")
     }
   }
 

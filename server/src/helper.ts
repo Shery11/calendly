@@ -8,51 +8,21 @@ export class Helper {
         return new Date(date).getTime()
     }
 
-    static validateRequest(req: any, next: any, schema: any): void {
-        const options = {
-            abortEarly: false, // include all errors
-            allowUnknown: true, // ignore unknown props
-            stripUnknown: true // remove unknown props
-        };
-        const { error, value } = schema.validate(req.body, options);
-        if (error) {
-            next(`Validation error: ${error.details.map((x: any) => x.message).join(', ')}`);
-        } else {
-            req.body = value;
-            next();
-        }
+    static async getUsersMeetings(schedulingUser: any, scheduledUser: any) {
+        const meetings_data = await Helper.meeting_ref.where('users', 'array-contains-any', [{ id: schedulingUser.id.toString(), username: schedulingUser.username.toLowerCase() },
+        { id: scheduledUser.id.toString(), username: scheduledUser.username.toLowerCase() }]).get();
+
+        return meetings_data.docs.map(snap => {
+            return { id: snap.id, start: Helper.getUnixDate(snap.data().start.toDate()), end: Helper.getUnixDate(snap.data().end.toDate()) }
+        })
     }
-    // static newlyAddedToArray(p: {
-    //     newArray: string[];
-    //     oldArray: string[];
-    //     description: string;
-    // }) {
-    //     const newlyAdded = p.newArray.filter((key) => !p.oldArray.includes(key));
 
-    //     if (newlyAdded.length === 0) return null;
-
-    //     if (newlyAdded.length > 1)
-    //         functions.logger.warn(
-    //             `${newlyAdded.length} entries added to: ${p.description}. Only first one will be processed. Newly added: ${newlyAdded}`
-    //         );
-
-    //     return newlyAdded[0];
-    // }
-
-    // newlyRemovedFromArray(p: {
-    //     newArray: string[];
-    //     oldArray: string[];
-    //     description: string;
-    // }) {
-    //     const newlyRemoved = p.oldArray.filter((key) => !p.newArray.includes(key));
-
-    //     if (newlyRemoved.length === 0) return null;
-
-    //     if (newlyRemoved.length > 1)
-    //         functions.logger.warn(
-    //             `${newlyRemoved.length} entries removed from: ${p.description}. Only first one will be processed. Newly removed: ${newlyRemoved}`
-    //         );
-
-    //     return newlyRemoved[0];
-    // }
+    static addNewMeeting(start: string, end: string, schedulingUser: any, scheduledUser: any) {
+        return Helper.meeting_ref.add({
+            start: admin.firestore.Timestamp.fromDate(new Date(start)),
+            end: admin.firestore.Timestamp.fromDate(new Date(end)),
+            users: [{ id: schedulingUser.id.toString(), username: schedulingUser.username.toLowerCase() },
+            { id: scheduledUser.id.toString(), username: scheduledUser.username.toLowerCase() }]
+        })
+    }
 }
