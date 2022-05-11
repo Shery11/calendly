@@ -28,5 +28,6 @@ This will spin the express server in watch mode.
 
 Tests are written using jest and node version v14.15.3
 
-```bashnpm run test
+```bash
+npm run test
 ```
