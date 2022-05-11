@@ -8,8 +8,8 @@ admin.initializeApp({
 
 import app from './api/api';
 
-app.listen(APP_CONFIG.PORT, () => {
+const server = app.listen(APP_CONFIG.PORT, () => {
     console.log(`EXPRESS APP LISTENING ON PORT ${APP_CONFIG.PORT}`)
 })
 
-export default app;
+export { app, server };
