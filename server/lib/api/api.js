@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.expressApp = void 0;
 // Controllers
 const express = require("express");
 const cors = require("cors");
@@ -12,5 +11,5 @@ app.use(express.json());
 app.use(cors({ origin: true }));
 // Routes
 app.use(new routes_1.Routes().app);
-exports.expressApp = app;
+exports.default = app;
 //# sourceMappingURL=api.js.map

@@ -13,6 +13,6 @@ app.use(cors({ origin: true }));
 // Routes
 app.use(new Routes().app);
 
-export const expressApp = app
+export default app
 
 

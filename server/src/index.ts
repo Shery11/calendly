@@ -6,8 +6,10 @@ admin.initializeApp({
     credential: admin.credential.cert(APP_CONFIG.FIREBASE)
 })
 
-import * as api from './api/api';
+import app from './api/api';
 
-api.expressApp.listen(APP_CONFIG.PORT, () => {
+app.listen(APP_CONFIG.PORT, () => {
     console.log(`EXPRESS APP LISTENING ON PORT ${APP_CONFIG.PORT}`)
 })
+
+export default app;
